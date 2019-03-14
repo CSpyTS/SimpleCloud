@@ -10,6 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:application-context.xml")
 public class TestConnection {
@@ -22,6 +24,12 @@ public class TestConnection {
         UserMapper mapper = (UserMapper) context.getBean("userMapper");
         User cspy = mapper.selectOne("CSpy");
         System.out.println(cspy);
+
+        System.out.println("=========");
+        List<User> users = mapper.selectAll();
+        for (User user: users) {
+            System.out.println(user);
+        }
 
     }
 }
