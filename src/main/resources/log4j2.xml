@@ -35,7 +35,7 @@
         <!-- 普通的根logger，注意，跟上面的异步跟root同时只能存在一个 -->
         <!-- <Root level="trace"> <AppenderRef ref="consoleAppender" /> </Root> -->
         <!-- 定义一个普通的logger，这里我定义为异步的 -->
-        <asyncLogger name="com.foo.Bar" level="info" additivity="false">
+        <asyncLogger name="SimpleCloud-SystemLogger" level="info" additivity="false">
             <AppenderRef ref="consoleAppender" />
             <AppenderRef ref="rollingRandomAccessFileAppender" />
         </asyncLogger>
