@@ -1,3 +1,28 @@
-2019-03-17 23:26:20.263 [main] INFO  com.foo.Bar - show something 2019-03-17T23:26:20.261
-2019-03-18 09:35:13.920 [main] INFO  SimpleCloud-SystemLogger - show something 2019-03-18T09:35:13.920
-2019-03-18 15:53:50.007 [main] INFO  SimpleCloud-SystemLogger - show something 2019-03-18T15:53:50.005
+2019-03-19 00:05:16.263 [main] INFO  SimpleCloud-SystemLogger - 系统初始化中。
+2019-03-19 00:05:16.263 [main] INFO  SimpleCloud-SystemLogger - 初始化数据文件系统。
+2019-03-19 00:05:16.265 [main] INFO  SimpleCloud-SystemLogger - 项目数据目录为：D:\SimpleCloud
+2019-03-19 00:05:16.265 [main] INFO  SimpleCloud-SystemLogger - -log文件夹已存在
+2019-03-19 00:05:16.265 [main] INFO  SimpleCloud-SystemLogger - -conf文件夹已存在
+2019-03-19 00:05:16.265 [main] INFO  SimpleCloud-SystemLogger - -users文件夹已存在
+2019-03-19 00:05:16.265 [main] INFO  SimpleCloud-SystemLogger - 初始化用户数据目录。
+2019-03-19 00:05:20.739 [main] INFO  SimpleCloud-SystemLogger - 当前数据库中共有：2名用户
+2019-03-19 00:05:20.739 [main] INFO  SimpleCloud-SystemLogger - 用户:CSpy初始化中
+2019-03-19 00:05:20.740 [main] ERROR SimpleCloud-SystemLogger - .crash创建失败!
+2019-03-19 00:05:20.740 [main] INFO  SimpleCloud-SystemLogger - 用户:hello初始化中
+2019-03-19 00:05:20.741 [main] ERROR SimpleCloud-SystemLogger - .crash创建失败!
+2019-03-19 00:09:31.615 [main] INFO  SimpleCloud-SystemLogger - 系统初始化中。
+2019-03-19 00:09:31.616 [main] INFO  SimpleCloud-SystemLogger - 初始化数据文件系统。
+2019-03-19 00:09:31.619 [main] INFO  SimpleCloud-SystemLogger - 项目数据目录为：D:\SimpleCloud
+2019-03-19 00:09:31.620 [main] INFO  SimpleCloud-SystemLogger - -log文件夹已存在。
+2019-03-19 00:09:31.620 [main] INFO  SimpleCloud-SystemLogger - -conf文件夹已存在。
+2019-03-19 00:09:31.621 [main] INFO  SimpleCloud-SystemLogger - -users文件夹已存在。
+2019-03-19 00:09:31.621 [main] INFO  SimpleCloud-SystemLogger - 初始化用户数据目录。
+2019-03-19 00:09:54.513 [main] INFO  SimpleCloud-SystemLogger - 当前数据库中共有：2名用户。
+2019-03-19 00:09:54.513 [main] INFO  SimpleCloud-SystemLogger - 用户:CSpy初始化中。
+2019-03-19 00:09:54.514 [main] WARN  SimpleCloud-SystemLogger - 用户：CSpy根目录不存在？
+2019-03-19 00:09:54.515 [main] INFO  SimpleCloud-SystemLogger - 用户：CSpy根目录创建成功。
+2019-03-19 00:09:54.515 [main] INFO  SimpleCloud-SystemLogger - .crash创建成功!
+2019-03-19 00:09:54.516 [main] INFO  SimpleCloud-SystemLogger - 用户:hello初始化中。
+2019-03-19 00:09:54.516 [main] WARN  SimpleCloud-SystemLogger - 用户：hello根目录不存在？
+2019-03-19 00:09:54.517 [main] INFO  SimpleCloud-SystemLogger - 用户：hello根目录创建成功。
+2019-03-19 00:09:54.518 [main] INFO  SimpleCloud-SystemLogger - .crash创建成功!

@@ -26,6 +26,12 @@
         <constructor-arg value="${system.logger}"/>
     </bean>
 
+    <bean id="systemInitializer" class="cspy.online.util.SystemInitializer">
+        <constructor-arg name="dataDirectoryString" value="${system.data}"/>
+        <constructor-arg name="basicDirectoryString" value="${system.basic}"/>
+        <constructor-arg name="userBasicDirectoryString" value="${system.basic.user}"/>
+    </bean>
+
 
 
 

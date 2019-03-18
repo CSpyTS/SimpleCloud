@@ -4,11 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cspy.online.dao.UserMapper">
     <select id="selectOne" resultType="cspy.online.bean.User">
-        select * from hello where username = #{username}
+        select * from user_table where username = #{username}
     </select>
 
     <select id="selectAll" resultType="cspy.online.bean.User">
-        select * from hello
+        select * from user_table
+    </select>
+
+    <select id="getAllUser" resultType="String">
+        select username from user_table;
     </select>
 
 </mapper>

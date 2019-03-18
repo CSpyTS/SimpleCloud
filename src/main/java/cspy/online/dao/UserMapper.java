@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserMapper {
     User selectOne(String username);
     List<User> selectAll();
+    List<String> getAllUser();
 }
