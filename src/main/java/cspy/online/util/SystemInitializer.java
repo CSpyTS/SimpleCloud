@@ -35,6 +35,9 @@ public class SystemInitializer {
         this.userBasicDirectoryString = userBasicDirectoryString;
     }
 
+    /**
+     * 初始化系统
+     */
     public void initSystem() {
         logger.info("系统初始化中。");
         initDataFileSystem();
@@ -43,6 +46,9 @@ public class SystemInitializer {
     }
 
 
+    /**
+     * 初始化数据目录
+     */
     public void initDataFileSystem() {
         logger.info("初始化数据文件系统。");
         dataDirectory = Paths.get(dataDirectoryString).toFile();
@@ -75,6 +81,9 @@ public class SystemInitializer {
         }
     }
 
+    /**
+     * 构造用户根目录
+     */
     public void initUserDataDirectory() {
         logger.info("初始化用户数据目录。");
         List<String> users = userMapper.getAllUser();
@@ -88,6 +97,11 @@ public class SystemInitializer {
         }
     }
 
+    /**
+     * 通过用户名构造用户目录
+     * @param username 用户名
+     *
+     */
     public void initUserDirectory(String username) {
         File userDirectory = basicDirectory.get("users");
         if (!userDirectory.exists()) {
@@ -106,14 +120,13 @@ public class SystemInitializer {
                 }
             }
 
-
             String[] userBasicDirectoryStrings = userBasicDirectoryString.split(",");
             for (String userBasic : userBasicDirectoryStrings) {
                 File userBasicFile = Paths.get(userDirectory.getPath(), username, userBasic).toFile();
                 if (!userBasicFile.exists()) {
                     boolean mkdir = userBasicFile.mkdir();
                     if (mkdir) {
-                        logger.info(userBasic + "创建成功!");
+                        logger.info(userBasic + "创建成功。");
                     } else {
                         logger.error(userBasic + "创建失败!");
                     }
@@ -123,6 +136,11 @@ public class SystemInitializer {
         }
 
     }
+
+
+
+
+
 
 
 }

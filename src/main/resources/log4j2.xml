@@ -3,7 +3,7 @@
     <!-- 将一些常用值提取出来，然后在文件的其他部分通过${}的形式引用，这些值可以随便定义 -->
     <Properties>
         <!-- 定义日志文件根目录 -->
-        <Property name="logDir" value="logs123" />
+        <Property name="logDir" value="D:/SimpleCloud/log" />
         <!-- 定义日志的通用格式 -->
         <Property name="genericPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         <!-- 定义日志分卷文件通用文件名形式 -->

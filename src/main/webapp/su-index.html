@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员主页</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        #logger-panel {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 0, 0.6);
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<div id="logger-panel">
+    <table>
+        <thead>
+        <tr>
+            <th>日志内容</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="logItem : ${webLogger.getLogs()}">
+            <td th:text="${logItem}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>
