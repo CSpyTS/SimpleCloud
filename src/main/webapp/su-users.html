@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <style>
+        .card-border {
+            padding: 20px;
+
+        }
+
+        .card {
+            width: 250px;
+            height: 300px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="user-item-panel">
+        <div class="row" th:each="userListItem : ${userList}">
+            <div th:each="userItem : ${userListItem}">
+                <div class="card">
+                    <h5 class="card-header" th:text="${userItem.getUsername()}"></h5>
+                    <div class="card-body">
+                        <h5 class="card-title">标题</h5>
+                        <p class="card-text" th:text="${userItem.getPhone()}"></p>
+                        <a href="#" class="card-link">这是按钮</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<div class="row">-->
+    <!--<div class="card-border col-3">-->
+    <!--<div class="card">-->
+    <!--<h5 class="card-header">CSpy</h5>-->
+    <!--<div class="card-body">-->
+    <!--<h5 class="card-title">标题</h5>-->
+    <!--<p class="card-text">这是卡片内容！</p>-->
+    <!--<a href="#" class="card-link">这是按钮</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="card-border col-3">-->
+    <!--<div class="card">-->
+    <!--<h5 class="card-header">CSpy</h5>-->
+    <!--<div class="card-body">-->
+    <!--<h5 class="card-title">标题</h5>-->
+    <!--<p class="card-text">这是卡片内容！</p>-->
+    <!--<a href="#" class="card-link">这是按钮</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="card-border col-3">-->
+    <!--<div class="card">-->
+    <!--<h5 class="card-header">CSpy</h5>-->
+    <!--<div class="card-body">-->
+    <!--<h5 class="card-title">标题</h5>-->
+    <!--<p class="card-text">这是卡片内容！</p>-->
+    <!--<a href="#" class="card-link">这是按钮</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="card-border col-3">-->
+    <!--<div class="card">-->
+    <!--<h5 class="card-header">CSpy</h5>-->
+    <!--<div class="card-body">-->
+    <!--<h5 class="card-title">标题</h5>-->
+    <!--<p class="card-text">这是卡片内容！</p>-->
+    <!--<a href="#" class="card-link">这是按钮</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+</div>
+<!--<script th:inline="javascript">-->
+<!--$(document).ready(function () {-->
+<!--var url = /*[[@{/s-user/get-all-user.do}]]*/'';-->
+<!--console.log("url:" + url);-->
+<!--$("#user-item-panel").load(url);-->
+<!--})-->
+<!--</script>-->
+
+</body>
+</html>

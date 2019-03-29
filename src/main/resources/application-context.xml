@@ -14,9 +14,20 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:cspy/online/mapper/*.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -34,13 +45,18 @@
     </bean>
 
     <bean id="webLogger" class="cspy.online.util.WebLogger" scope="singleton">
-
     </bean>
 
-    <bean class="org.springframework.ui.ModelMap"></bean>
+    <bean id="mySystemLogger" class="cspy.online.util.SystemLogger"/>
+
+    <bean class="org.springframework.ui.ModelMap"/>
     
     <aop:config>
-        <aop:pointcut id="webLogger" expression="execution(* cspy.online.util.WebLogger.addLog(..))"/>
+        <aop:pointcut id="webLoggerPointCut" expression="execution(* cspy.online.util.WebLogger.addLog(..))"/>
+
+        <aop:aspect ref="mySystemLogger">
+            <aop:before method="systemLogger" pointcut-ref="webLoggerPointCut"/>
+        </aop:aspect>
 
 
     </aop:config>

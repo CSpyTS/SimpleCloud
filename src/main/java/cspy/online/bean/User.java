@@ -1,17 +1,26 @@
 package cspy.online.bean;
 
+import cspy.online.util.Formatter;
+
+import java.time.LocalDateTime;
+
 public class User {
     private int uid;
     private String username;
     private String password;
-    private String gmt_create;
-    private String gmt_modify;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModify;
     private String email;
-    private short email_valid;
+    private short emailValid;
     private String phone;
-    private short phont_valid;
+    private short phoneValid;
     private String state;
 
+
+    public User() {
+
+        gmtCreate = gmtModify = LocalDateTime.now();
+    }
 
     public int getUid() {
         return uid;
@@ -37,20 +46,20 @@ public class User {
         this.password = password;
     }
 
-    public String getGmt_create() {
-        return gmt_create;
+    public LocalDateTime getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmt_create(String gmt_create) {
-        this.gmt_create = gmt_create;
+    public void setGmtCreate(LocalDateTime gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public String getGmt_modify() {
-        return gmt_modify;
+    public LocalDateTime getGmtModify() {
+        return gmtModify;
     }
 
-    public void setGmt_modify(String gmt_modify) {
-        this.gmt_modify = gmt_modify;
+    public void setGmtModify(LocalDateTime gmtModify) {
+        this.gmtModify = gmtModify;
     }
 
     public String getEmail() {
@@ -61,12 +70,12 @@ public class User {
         this.email = email;
     }
 
-    public short getEmail_valid() {
-        return email_valid;
+    public short getEmailValid() {
+        return emailValid;
     }
 
-    public void setEmail_valid(short email_valid) {
-        this.email_valid = email_valid;
+    public void setEmailValid(short emailValid) {
+        this.emailValid = emailValid;
     }
 
     public String getPhone() {
@@ -74,15 +83,15 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = Formatter.formatPhoneNumber(phone);
     }
 
-    public short getPhont_valid() {
-        return phont_valid;
+    public short getPhoneValid() {
+        return phoneValid;
     }
 
-    public void setPhont_valid(short phont_valid) {
-        this.phont_valid = phont_valid;
+    public void setPhoneValid(short phoneValid) {
+        this.phoneValid = phoneValid;
     }
 
     public String getState() {

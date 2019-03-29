@@ -6,10 +6,13 @@ import java.util.List;
 public class WebLogger {
     private List<String> logs;
 
-
     public WebLogger() {
-        logs = new ArrayList<>();
+        clearLog();
     }
+
+
+
+
 
     public List<String> getLogs() {
         return logs;
@@ -25,6 +28,15 @@ public class WebLogger {
      * @param message   消息内容
      */
     public void addLog(String type, String message) {
-        logs.add(type + ":" +message);
+        logs.add(0,type + ":" +message);
     }
+
+    public void clearLog() {
+        if (logs != null) {
+            logs.clear();
+        } else {
+            logs = new ArrayList<>();
+        }
+    }
+
 }

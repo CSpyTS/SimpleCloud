@@ -7,30 +7,62 @@
     <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
     <style>
-        #logger-panel {
+        #logger-panel-border {
             width: 200px;
             height: 200px;
             background: rgba(255, 255, 0, 0.6);
             overflow-y: scroll;
+            display: none;
         }
     </style>
 </head>
 <body>
-<div id="logger-panel">
-    <table>
-        <thead>
-        <tr>
-            <th>日志内容</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="logItem : ${webLogger.getLogs()}">
-            <td th:text="${logItem}"></td>
-        </tr>
-        </tbody>
-    </table>
+
+
+<div class="container">
+    <nav class="nav justify-content-between">
+        <a href="#" class="p-2 text-muted">系统管理</a>
+        <a href="#" class="p-2 text-muted">日志管理</a>
+        <a href="#" class="p-2 text-muted">用户管理</a>
+        <a href="#" class="p-2 text-muted">回收站</a>
+    </nav>
+
+
 
 </div>
+
+
+
+
+<div id="logger-panel">
+    <div id="logger-panel-border" th:fragment="logger-panel">
+        <table>
+            <thead>
+            <tr>
+                <th>日志内容</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="logItem : ${webLogger.getLogs()}">
+                <td th:text="${logItem}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!--<script th:inline="javascript">-->
+    <!--$(document).ready(function () {-->
+
+        <!--var url = /*[[@{/su-index/logger.do}]]*/'';-->
+        <!--console.log("url:" + url)-->
+        <!--window.setInterval(function () {-->
+            <!--$("#logger-panel").load(url)-->
+        <!--}, 2000)-->
+    <!--})-->
+<!--</script>-->
 
 
 </body>

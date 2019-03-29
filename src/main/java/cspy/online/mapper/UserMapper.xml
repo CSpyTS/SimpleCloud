@@ -15,4 +15,18 @@
         select username from user_table;
     </select>
 
+    <insert id="insertUser" parameterType="cspy.online.bean.User">
+        insert into user_table (gmt_create, gmt_modify, username, password)
+        values (#{gmtCreate}, #{gmtModify}, #{username}, #{password})
+    </insert>
+
+    <insert id="insertUsers" parameterType="java.util.List">
+        insert into user_table (gmt_create, gmt_modify, username, password)
+        values 
+        <foreach collection="list" item="user" index="index" separator=",">
+            (#{user.gmtCreate}, #{user.gmtModify}, #{user.username}, #{user.password})
+        </foreach>
+
+    </insert>
+
 </mapper>

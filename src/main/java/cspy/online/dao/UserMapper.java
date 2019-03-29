@@ -12,4 +12,8 @@ public interface UserMapper {
      * @return 用户名列表
      */
     List<String> getAllUser();
+
+    int insertUser(User user);
+    int insertUsers(List<User> users);
+
 }
