@@ -24,7 +24,7 @@ public class SuperIndexController {
 
 
 
-    @RequestMapping("/su-index.do")
+    @RequestMapping("/su-index")
     @Autowired
     public String getSuperIndex(ModelMap modelMap) {
         modelMap.addAttribute("webLogger", webLogger);
@@ -33,7 +33,7 @@ public class SuperIndexController {
 
 
 
-    @RequestMapping("/su-index/logger.do")
+    @RequestMapping("/su-index/logger")
     @Autowired
     public String getSuIndexLogger(ModelMap modelMap) {
         System.err.println("into");

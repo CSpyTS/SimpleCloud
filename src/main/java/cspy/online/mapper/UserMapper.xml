@@ -3,8 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cspy.online.dao.UserMapper">
-    <select id="selectOne" resultType="cspy.online.bean.User">
+    <select id="selectOneByUserName" resultType="cspy.online.bean.User">
         select * from user_table where username = #{username}
+    </select>
+    <select id="selectOneByPhone" resultType="cspy.online.bean.User">
+        select * from user_table where phone = #{phone}
+    </select>
+    <select id="selectOneByEmail" resultType="cspy.online.bean.User">
+        select * from user_table where email = #{email}
     </select>
 
     <select id="selectAll" resultType="cspy.online.bean.User">
@@ -13,6 +19,15 @@
 
     <select id="getAllUser" resultType="String">
         select username from user_table;
+    </select>
+    <select id="getPasswordByUserName" resultType="String">
+        select password from user_table where username = #{username} limit 1
+    </select>
+    <select id="getPasswordByPhone" resultType="String">
+        select password from user_table where phone = #{phone} limit 1
+    </select>
+    <select id="getPasswordByEmail" resultType="String">
+        select password from user_table where email = #{email} limit 1
     </select>
 
     <insert id="insertUser" parameterType="cspy.online.bean.User">
@@ -26,7 +41,6 @@
         <foreach collection="list" item="user" index="index" separator=",">
             (#{user.gmtCreate}, #{user.gmtModify}, #{user.username}, #{user.password})
         </foreach>
-
     </insert>
 
 </mapper>

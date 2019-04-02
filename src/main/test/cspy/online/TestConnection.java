@@ -25,7 +25,7 @@ public class TestConnection {
     @Test
     public void testHello() {
         UserMapper mapper = (UserMapper) context.getBean("userMapper");
-        User cspy = mapper.selectOne("CSpy");
+        User cspy = mapper.selectOneByUserName("CSpy");
         System.out.println(cspy);
 
         System.out.println("=========");

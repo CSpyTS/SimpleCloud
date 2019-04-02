@@ -5,15 +5,17 @@ import cspy.online.bean.User;
 import java.util.List;
 
 public interface UserMapper {
-    User selectOne(String username);
+    User selectOneByUserName(String username);
+    User selectOneByPhone(String phone);
+    User selectOneByEmail(String email);
     List<User> selectAll();
 
-    /**
-     * @return 用户名列表
-     */
     List<String> getAllUser();
 
     int insertUser(User user);
     int insertUsers(List<User> users);
+    String getPasswordByUserName(String username);
+    String getPasswordByPhone(String phone);
+    String getPasswordByEmail(String email);
 
 }

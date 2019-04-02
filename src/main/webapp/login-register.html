@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        #login-card {
+            height: 500px;
+            padding-top: 20px;
+        }
+
+        /*表单输入框*/
+        form div {
+            padding-bottom: 20px;
+        }
+
+        /*输入框下面的feedback*/
+        form div div {
+            position: absolute;
+        }
+
+        /*.tab-content button {*/
+        /*margin-top: 30px;*/
+        /*}*/
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card col-6 offset-3" id="login-card">
+        <ul class="nav nav-pills nav-fill" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-UserName-tab" data-toggle="pill" href="#pills-UserName" role="tab"
+                   aria-controls="pills-username"
+                   aria-selected="true">用户名登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Phone-Email-tab" data-toggle="pill" href="#pills-Phone-Email" role="tab"
+                   aria-controls="pills-Phone-Email"
+                   aria-selected="false">手机/邮箱登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-Register-tab" data-toggle="pill" href="#pills-Register" role="tab"
+                   aria-controls="pills-Register"
+                   aria-selected="false">用户注册</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="padding-top: 60px;">
+            <div class="tab-pane fade show active" id="pills-UserName" role="tabpanel"
+                 aria-labelledby="pills-UserName-tab">
+                <form th:action="@{/login-register/login-by-username}" action="#" method="post">
+                    <div class="form-group">
+                        <label for="UserName-input-1">用户名</label>
+                        <input type="text" class="form-control" id="UserName-input-1" name="username"
+                               required placeholder="输入用户名">
+                        <div class="invalid-feedback">该用户未注册！</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password-input-1">密码</label>
+                        <input type="password" class="form-control" id="Password-input-1" name="password"
+                               required placeholder="输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-Phone-Email" role="tabpanel" aria-labelledby="pills-Phone-Email-tab">
+                <form th:action="@{/login-register/login-by-phone-email}" action="#" method="post">
+                    <div class="form-group">
+                        <label for="Phone-Email-input">手机/邮箱</label>
+                        <input type="text" class="form-control" id="Phone-Email-input" name="phone-email"
+                               required placeholder="输入手机或邮箱">
+                        <div class="invalid-feedback">手机/邮箱！</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password-input-2">密码</label>
+                        <input type="password" class="form-control" id="Password-input-2" name="password"
+                               required placeholder="输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-Register" role="tabpanel" aria-labelledby="pills-Register-tab">
+                <form th:action="@{/login-register/register}" action="#" method="post">
+                    <div class="form-group">
+                        <label for="UserName-input-3">用户名</label>
+                        <input type="text" class="form-control" id="UserName-input-3" name="username"
+                               required placeholder="输入用户名">
+                        <div class="invalid-feedback">该用户已注册！</div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Password-input-3-1">密码</label>
+                        <input type="password" class="form-control" id="Password-input-3-1" name="password"
+                               required placeholder="输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password-input-3-2">确认密码</label>
+                        <input type="password" class="form-control" id="Password-input-3-2"
+                               required placeholder="输入确认密码">
+                        <div class="invalid-feedback">两次密码不一致！</div>
+                    </div>
+                    <button type="submit" id="register-btn" class="btn btn-primary btn-block" disabled>注册</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    var loginCard = document.getElementById("login-card");
+    loginCard.style.marginTop = (window.screen.height - loginCard.offsetHeight) / 3 + "px";
+
+    var usernameInput1 = $("#UserName-input-1");
+    usernameInput1.on('blur', function () {
+        var username = usernameInput1.val();
+        if (username.length !== 0) {
+            isUserByUserName($(this), username, false, "该用户未注册！")
+        } else {
+            setFeedback($(this), "用户名不能为空！")
+        }
+    });
+
+    var phoneEmailInput = $("#Phone-Email-input");
+    phoneEmailInput.on('blur', function () {
+        var phoneOrEmail = phoneEmailInput.val();
+        if (phoneOrEmail.length === 0) {
+            setFeedback($(this), "用户名不能为空！")
+        } else if (phoneOrEmail.indexOf("@") !== -1) {
+            isUserByEmail($(this), phoneOrEmail)
+        } else {
+            isUserByPhone($(this), phoneOrEmail)
+
+        }
+    });
+
+    var usernameInput2 = $("#UserName-input-3");
+    usernameInput2.on('blur', function () {
+        var username = usernameInput2.val();
+        if (username.length !== 0) {
+            isUserByUserName($(this), username, true, "该用户已被注册！")
+        } else {
+            setFeedback($(this), "用户名不能为空！")
+        }
+    });
+
+    var registerPassword1 = $("#Password-input-3-1");
+    registerPassword1.on('input', function () {
+        checkPassword();
+    });
+
+    var registerPassword2 = $("#Password-input-3-2");
+    registerPassword2.on('input', function () {
+        checkPassword();
+    });
+
+
+    function isUserByUserName(input, username, bool, message) {
+        $.ajax({
+                url: /*[[@{/login-register/isUserByUserName}]]*/'',
+                data: {username: username},
+                success: function (msg) {
+                    if (msg === bool) {
+                        setFeedback(input, message);
+                    } else {
+                        clearFeedback(input);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg)
+                }
+            }
+        )
+    }
+
+    function isUserByPhone(input, phone) {
+        $.ajax({
+                url: /*[[@{/login-register/isUserByPhone}]]*/'',
+                data: {phone: phone},
+                success: function (msg) {
+                    if (!msg) {
+                        setFeedback(input, "用户不存在！");
+                    } else {
+                        clearFeedback(input);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg)
+                }
+            }
+        )
+    }
+
+    function isUserByEmail(input, email) {
+        $.ajax({
+                url: /*[[@{/login-register/isUserByEmail}]]*/'',
+                data: {email: email},
+                success: function (msg) {
+                    if (!msg) {
+                        setFeedback(input, "用户不存在！");
+                    } else {
+                        clearFeedback(input);
+                    }
+                },
+                error: function (msg) {
+                    alert(msg)
+                }
+            }
+        )
+    }
+
+    function clearFeedback(input) {
+        input.parent().children("div").css("display", "none");
+        input.addClass("is-valid");
+    }
+
+    function setFeedback(input, message) {
+        input.removeClass("is-valid");
+        input.parent().children("div").css("display", "block").text(message);
+    }
+
+    function checkPassword() {
+        var submitBtn = $("#register-btn");
+        var password1 = $("#Password-input-3-1");
+        var password2 = $("#Password-input-3-2");
+
+        if (password2.val().length === 0) {
+            return;
+        }
+        if (password1.val() === password2.val()) {
+            submitBtn.attr('disabled', false);
+            clearFeedback(password2, true);
+        } else {
+            submitBtn.attr('disabled', true);
+            setFeedback(password2, "两次密码不一致！");
+
+        }
+    }
+
+</script>
+
+</body>
+</html>

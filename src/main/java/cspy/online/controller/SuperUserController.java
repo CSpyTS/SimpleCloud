@@ -26,7 +26,7 @@ public class SuperUserController {
     WebLogger webLogger;
 
 
-    @RequestMapping("/su-users.do")
+    @RequestMapping("/su-users")
     @Autowired
     public String getSuperUser(ModelMap modelMap) {
         modelMap.addAttribute("webLogger", webLogger);
