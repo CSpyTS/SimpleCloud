@@ -12,6 +12,7 @@
         :root {
             --siderbar: 200px;
         }
+
         html, body {
             height: 100%;
         }
@@ -23,16 +24,19 @@
             fill: currentColor;
             overflow: hidden;
         }
+
         .nav-header {
             width: 100%;
             height: 100px;
             background: black;
         }
+
         #main-frame {
             width: 100%;
             /*background: gray;*/
 
         }
+
         #siderbar {
             float: left;
             width: var(--siderbar);
@@ -41,6 +45,7 @@
             display: inline-block;
             position: relative;
         }
+
         #relate-div {
             position: absolute;
             bottom: 0px;
@@ -56,10 +61,10 @@
             display: inline-block;
             overflow: hidden;
         }
-        #file-table {
+
+        #file-table-div {
             width: 100%;
             overflow: scroll;
-
         }
 
 
@@ -72,12 +77,13 @@
 </head>
 <body>
 <!--<svg class="icon" aria-hidden="true">-->
-    <!--<use xlink:href="#iconreload"></use>-->
+<!--<use xlink:href="#iconreload"></use>-->
 <!--</svg>-->
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">SimpleCloud</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -90,7 +96,8 @@
                 <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Dropdown
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,100 +117,141 @@
 </nav>
 <div id="main-frame">
     <div id="siderbar">
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">全部文件</a>
+        <!--<div class="list-group">-->
+        <!--<a href="#" class="list-group-item list-group-item-action">全部文件</a>-->
 
-            <a href="#" class="list-group-item list-group-item-action active">图片</a>
-            <a href="#" class="list-group-item list-group-item-action">文档</a>
-            <a href="#" class="list-group-item list-group-item-action">视频</a>
-            <a href="#" class="list-group-item list-group-item-action">种子</a>
-            <a href="#" class="list-group-item list-group-item-action">音乐</a>
-            <a href="#" class="list-group-item list-group-item-action">其他</a>
-            <a href="#" class="list-group-item list-group-item-action">我的分享</a>
-            <a href="#" class="list-group-item list-group-item-action">回收站</a>
-        </div>
+        <!--<a href="#" class="list-group-item list-group-item-action active">图片</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">文档</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">视频</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">种子</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">音乐</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">其他</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">我的分享</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-action">回收站</a>-->
+        <!--</div>-->
+
+        <ul class="nav nav-pills  flex-column" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="nav-all-file" data-toggle="pill" href="#pills-all-file" role="tab">
+                    全部文件
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-txt" data-toggle="pill" href="#pills-txt" role="tab">
+                    文档
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-tor" data-toggle="pill" href="#pills-tor" role="tab">
+                    种子
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-video" data-toggle="pill" href="#pills-video" role="tab">
+                    视频
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-music" data-toggle="pill" href="#pills-music" role="tab">
+                    音乐
+                </a>
+            </li>
+        </ul>
+
 
         <div id="relate-div">
             <div id="storage-progress-label"><span>250M/1000M</span></div>
             <div id="storage-progress" class="progress" style="height: 2px;">
-                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
+                     aria-valuemax="100"></div>
             </div>
 
         </div>
 
     </div>
-    <div id="show-panel">
-        <div id="show-panel-nav">
-            <nav id="main-" class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div id="show-panel" class="tab-content">
+        <!--id="all-file"-->
+        <div class="tab-pane fade show active" id="pills-all-file" role="tabpanel">
+            <div id="show-panel-nav">
+                <!--<nav id="main-1" class="navbar navbar-expand-lg navbar-light bg-light">-->
+                <!--<a class="navbar-brand" href="#">Navbar</a>-->
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse"-->
+                <!--data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent"-->
+                <!--aria-expanded="false" aria-label="Toggle navigation">-->
+                <!--<span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li><a href="#">返回上一级</a></li>
-                    <li>&nbsp;|&nbsp;</li>
-                    <li th:each="path : ${filePathList}" class="breadcrumb">
-                        <a href="#" th:text="${path.toString()}">#</a>
-                    </li>
-                    <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
-                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
-                    <!--<li class="breadcrumb-item active" aria-current="page">Data</li>-->
-                </ol>
-            </nav>
+                <!--<div class="collapse navbar-collapse" id="navbarSupportedContent1">-->
+                <!--<ul class="navbar-nav mr-auto">-->
+                <!--<li class="nav-item active">-->
+                <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="#">Link</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item dropdown">-->
+                <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"-->
+                <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--Dropdown-->
+                <!--</a>-->
+                <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown1">-->
+                <!--<a class="dropdown-item" href="#">Action</a>-->
+                <!--<a class="dropdown-item" href="#">Another action</a>-->
+                <!--<div class="dropdown-divider"></div>-->
+                <!--<a class="dropdown-item" href="#">Something else here</a>-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                <!--<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--<form class="form-inline my-2 my-lg-0">-->
+                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <!--</form>-->
+                <!--</div>-->
+                <!--</nav>-->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" id="file-path-ol">
+                    </ol>
+                </nav>
+            </div>
+            <div id="file-table-div">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">文件名</th>
+                        <th scope="col">大小(b)</th>
+                        <th scope="col">类型</th>
+                        <th scope="col">修改日期</th>
+                    </tr>
+                    </thead>
+                    <tbody id="file-table-body">
+                    <tr th:each="fileItem : ${fileList}" th:fragment="file-table-body" class="file-item">
+                        <td scope="col" th:text="${fileItem.getFilename()}"></td>
+                        <td scope="col" th:text="${fileItem.getSize()}"></td>
+                        <td scope="col" th:text="${fileItem.getType()}"></td>
+                        <td scope="col" th:text="${fileItem.getGmtModify()}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
         </div>
-        <div id="file-table">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">文件名</th>
-                    <th scope="col">大小(b)</th>
-                    <th scope="col">类型</th>
-                    <th scope="col">修改日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="fileItem : ${fileList}" class="file-item">
-                    <td th:text="${fileItem.getFilename()}"></td>
-                    <td th:text="${fileItem.getSize()}"></td>
-                    <td th:text="${fileItem.getType()}"></td>
-                    <td th:text="${fileItem.getGmtModify()}"></td>
-                </tr>
-
-                </tbody>
-            </table>
-
+        <div class="tab-pane fade" id="pills-txt" role="tabpanel">
+            文本
         </div>
+        <div class="tab-pane fade" id="pills-tor" role="tabpanel">
+            种子文件
+        </div>
+        <div class="tab-pane fade" id="pills-video" role="tabpanel">
+            视频
+        </div>
+        <div class="tab-pane fade" id="pills-music" role="tabpanel">
+            音乐
+        </div>
+
 
     </div>
 
@@ -211,27 +259,107 @@
 
 
 <!--动态设置大小-->
-<script>
+<script th:inline="javascript">
     const main_frame = document.getElementById("main-frame");
     const navbar = document.getElementById("navbar");
     // console.log("navbar: navbar.width:" + navbar.offsetWidth + "\nnavbar.height:" + navbar.offsetHeight);
     main_frame.style.height = document.documentElement.clientHeight - navbar.offsetHeight + "px";
 
-    const file_table = document.getElementById("file-table");
+    const file_table = document.getElementById("file-table-div");
     const main_frame_nav = document.getElementById("show-panel-nav");
     file_table.style.height = main_frame.offsetHeight - main_frame_nav.offsetHeight + "px";
+    // file_table.style.height = main_frame.offsetHeight + "px";
+
     // file_table.offsetHeight = document.getElementById("")
 
-    var file_item = $(".file-item");
-    file_item.on('click', function () {
-        var type = $(this).children()[2];
-        if (type.innerHTML === "文件夹") {
-            alert("yes")
+    file_path_list = [];
+    file_path_list.push("D:/SimpleCloud/users/CSpy");
+    // file_path_list.push("资源");
+    var path = getPath();
+    var url = /*[[@{/getFileList}]]*/'';
+    console.log("path = " + path);
+    $("#file-table-body").load(url, {path: path}, function () {
+        console.log("load")
+    });
+    $('tbody').on('click', 'tr', function () {
+        var fileItem = $(this);
+        if (fileItem.children()[2].innerHTML === '文件夹') {
+            file_path_list.push(fileItem.children()[0].innerHTML);
+            console.log(fileItem.children()[0].innerHTML)
+            initFilePathOl();
+            var path = getPath();
+            var url = /*[[@{/getFileList}]]*/'';
+            $("#file-table-body").load(url, {path: path}, function () {
+                console.log("path - " + path)
+            })
+
         } else {
-            console.log(type.innerHTML)
+            console.log("not a file")
         }
 
-    })
+    });
+
+    initFilePathOl(file_path_list);
+
+
+    function getPath() {
+
+        var path = file_path_list[0];
+        for (let i = 1; i < file_path_list.length; i++) {
+            path += "/" + file_path_list[i];
+        }
+        return path;
+
+    }
+
+
+    function initFilePathOl() {
+        var file_path_ol = $("#file-path-ol");
+        file_path_ol.empty();
+
+        file_path_ol.append($('<li><a href="javascript:;" onclick="backTo()">返回上级</a></li>'));
+        file_path_ol.append($('<li>&nbsp;|&nbsp;</li>'))
+
+        for (let i = 0; i < file_path_list.length; i++) {
+            var index = i + 1;
+            var item = $('<li class="breadcrumb-item"><a href="javascript:;" onclick="clickFilePath(' + index + ')">' + file_path_list[i] + '</a></li>');
+            file_path_ol.append(item);
+        }
+    }
+
+    function clickFilePath(index) {
+        if (index >= 0 && index < file_path_list.length) {
+            file_path_list = file_path_list.slice(0, index);
+        }
+        refreshTable();
+
+    }
+
+    function backTo() {
+        var length = file_path_list.length;
+        if (length > 1) {
+            file_path_list = file_path_list.slice(0, file_path_list.length - 1);
+            refreshTable();
+        } else {
+            alert("已经到达根目录！");
+        }
+    }
+
+    function refreshTable() {
+        initFilePathOl();
+        var path = getPath();
+        var url = /*[[@{/getFileList}]]*/'';
+        console.log("click   path = " + path);
+        $("#file-table-body").load(url, {path: path}, function () {
+            console.log("load")
+        });
+    }
+
+    function createHref(href) {
+        var a = document.createElement("a");
+        a.href = href;
+        return a;
+    }
 </script>
 </body>
 </html>
