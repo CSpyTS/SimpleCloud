@@ -4,7 +4,7 @@ import cspy.online.util.Formatter;
 
 import java.time.LocalDateTime;
 
-public class User {
+public class SCUser {
     private int uid;
     private String username;
     private String password;
@@ -17,8 +17,7 @@ public class User {
     private String state;
 
 
-    public User() {
-
+    public SCUser() {
         gmtCreate = gmtModify = LocalDateTime.now();
     }
 

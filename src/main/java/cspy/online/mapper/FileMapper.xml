@@ -3,5 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cspy.online.dao.FileMapper">
+    <insert id="insertFiles" parameterType="cspy.online.bean.SCFile">
+        insert into file_table (gmt_create, gmt_modify, path, filename, type, size)
+        values
+        <foreach collection="list" item="fileItem" index="index" separator=",">
+            (#{fileItem.gmtCreate}, #{fileItem.gmtModify}, #{fileItem.path}, #{fileItem.filename}, #{fileItem.type},
+            #{fileItem.size})
+        </foreach>
+    </insert>
+
+
+
+    <select id="getFileList" resultType="cspy.online.bean.SCFile">
+        select * from file_table where path = #{path}
+    </select>
 
 </mapper>

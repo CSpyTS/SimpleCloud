@@ -1,15 +1,12 @@
 package cspy.online.util;
 
-import cspy.online.bean.User;
+import cspy.online.bean.SCFile;
 import cspy.online.dao.UserMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +25,9 @@ public class SystemInitializer {
 
     private File dataDirectory;
     private Map<String, File> basicDirectory;
+
+    private List<SCFile> unrecordSCFileList;
+
 
     public SystemInitializer(String dataDirectoryString, String basicDirectoryString, String userBasicDirectoryString) {
         this.dataDirectoryString = dataDirectoryString;

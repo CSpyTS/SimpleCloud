@@ -1,8 +1,9 @@
 package cspy.online;
 
-import cspy.online.bean.User;
+import cspy.online.bean.SCFile;
+import cspy.online.bean.SCUser;
+import cspy.online.dao.FileMapper;
 import cspy.online.dao.UserMapper;
-import javafx.application.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,13 +28,13 @@ public class TestConnection {
     @Test
     public void testHello() {
         UserMapper mapper = (UserMapper) context.getBean("userMapper");
-        User cspy = mapper.selectOneByUserName("CSpy");
+        SCUser cspy = mapper.selectOneByUserName("CSpy");
         System.out.println(cspy);
 
         System.out.println("=========");
-        List<User> users = mapper.selectAll();
-        for (User user: users) {
-            System.out.println(user);
+        List<SCUser> SCUsers = mapper.selectAll();
+        for (SCUser SCUser : SCUsers) {
+            System.out.println(SCUser);
         }
 
     }
@@ -39,25 +42,37 @@ public class TestConnection {
     @Test
     public void insertUser() {
         UserMapper mapper = (UserMapper) context.getBean("userMapper");
-        User user = getRandomUser();
-        System.out.println("第一个用户:" + user);
-        mapper.insertUser(user);
+        SCUser SCUser = getRandomUser();
+        System.out.println("第一个用户:" + SCUser);
+        mapper.insertUser(SCUser);
 
-        List<User> users = new ArrayList<>();
-        int randomNumber = new Random().nextInt(20);
+        List<SCUser> SCUsers = new ArrayList<>();
+        int randomNumber = new Random().nextInt(40);
         for (int i = 0; i < randomNumber; i++) {
-            users.add(getRandomUser());
+            SCUsers.add(getRandomUser());
         }
-        System.out.println("一批用户:" + users.size());
-        mapper.insertUsers(users);
+        System.out.println("一批用户:" + SCUsers.size());
+        mapper.insertUsers(SCUsers);
 
 
     }
 
-    public User getRandomUser() {
-        User user = new User();
-        user.setUsername(UUID.randomUUID().toString().substring(0, 8));
-        user.setPassword("randomUser");
-        return user;
+    public SCUser getRandomUser() {
+        SCUser SCUser = new SCUser();
+        SCUser.setUsername(UUID.randomUUID().toString().substring(0, 8));
+        SCUser.setPassword("randomUser");
+        return SCUser;
+    }
+
+
+    @Test
+    public void testFileSearch() {
+        Path path = Paths.get("D:/SimpleCloud/users/CSpy");
+        System.out.println(path);
+        FileMapper fileMapper = (FileMapper) context.getBean("fileMapper");
+        List<SCFile> fileList = fileMapper.getFileList(path);
+        for (SCFile file : fileList) {
+            System.out.println(file.getPath() + "----" + file.getFilename() + "----" + file.getType());
+        }
     }
 }

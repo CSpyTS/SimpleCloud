@@ -1,18 +1,25 @@
 package cspy.online.bean;
 
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDateTime;
+
 /**
  * @author CSpy
  * @date 2019/3/24 14:32
  */
-public class File {
+public class SCFile {
     private int fid;
-    private String gmtCreate;
-    private String gmtModify;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModify;
     private String path;
     private String filename;
     private String type;
-    private int size;
-    private int uid;
+    private long size;
+
+    public SCFile() {
+        this.gmtModify = this.gmtCreate = LocalDateTime.now();
+    }
 
     @Override
     public String toString() {
@@ -27,19 +34,19 @@ public class File {
         this.fid = fid;
     }
 
-    public String getGmtCreate() {
+    public LocalDateTime getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(String gmtCreate) {
+    public void setGmtCreate(LocalDateTime gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public String getGmtModify() {
+    public LocalDateTime getGmtModify() {
         return gmtModify;
     }
 
-    public void setGmtModify(String gmtModify) {
+    public void setGmtModify(LocalDateTime gmtModify) {
         this.gmtModify = gmtModify;
     }
 
@@ -67,19 +74,13 @@ public class File {
         this.type = type;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
-    public int getUid() {
-        return uid;
-    }
 
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
 }

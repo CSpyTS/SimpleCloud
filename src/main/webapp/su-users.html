@@ -23,7 +23,7 @@
 <body>
 
 <div class="container">
-    <div id="user-item-panel">
+    <div id="SCUser-item-panel">
         <div class="row" th:each="userListItem : ${userList}">
             <div th:each="userItem : ${userListItem}">
                 <div class="card">
@@ -84,9 +84,9 @@
 </div>
 <!--<script th:inline="javascript">-->
 <!--$(document).ready(function () {-->
-<!--var url = /*[[@{/s-user/get-all-user.do}]]*/'';-->
+<!--var url = /*[[@{/s-SCUser/get-all-SCUser.do}]]*/'';-->
 <!--console.log("url:" + url);-->
-<!--$("#user-item-panel").load(url);-->
+<!--$("#SCUser-item-panel").load(url);-->
 <!--})-->
 <!--</script>-->
 

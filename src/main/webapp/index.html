@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>简易云</title>
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <!--<script src="js/iconfont.js"></script>-->
     <style>
+
         :root {
             --siderbar: 200px;
         }
         html, body {
             height: 100%;
+        }
+
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
         }
         .nav-header {
             width: 100%;
@@ -38,7 +48,6 @@
             height: 100px;
         }
 
-
         #show-panel {
             float: left;
             width: calc(100% - var(--siderbar));
@@ -62,7 +71,9 @@
 
 </head>
 <body>
-
+<!--<svg class="icon" aria-hidden="true">-->
+    <!--<use xlink:href="#iconreload"></use>-->
+<!--</svg>-->
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">SimpleCloud</a>
@@ -162,10 +173,12 @@
                 <ol class="breadcrumb">
                     <li><a href="#">返回上一级</a></li>
                     <li>&nbsp;|&nbsp;</li>
-
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    <li th:each="path : ${filePathList}" class="breadcrumb">
+                        <a href="#" th:text="${path.toString()}">#</a>
+                    </li>
+                    <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <!--<li class="breadcrumb-item active" aria-current="page">Data</li>-->
                 </ol>
             </nav>
         </div>
@@ -173,126 +186,20 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">文件名</th>
+                    <th scope="col">大小(b)</th>
+                    <th scope="col">类型</th>
+                    <th scope="col">修改日期</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                <tr th:each="fileItem : ${fileList}" class="file-item">
+                    <td th:text="${fileItem.getFilename()}"></td>
+                    <td th:text="${fileItem.getSize()}"></td>
+                    <td th:text="${fileItem.getType()}"></td>
+                    <td th:text="${fileItem.getGmtModify()}"></td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
+
                 </tbody>
             </table>
 
@@ -307,13 +214,24 @@
 <script>
     const main_frame = document.getElementById("main-frame");
     const navbar = document.getElementById("navbar");
-    console.log("navbar: navbar.width:" + navbar.offsetWidth + "\nnavbar.height:" + navbar.offsetHeight);
+    // console.log("navbar: navbar.width:" + navbar.offsetWidth + "\nnavbar.height:" + navbar.offsetHeight);
     main_frame.style.height = document.documentElement.clientHeight - navbar.offsetHeight + "px";
 
     const file_table = document.getElementById("file-table");
     const main_frame_nav = document.getElementById("show-panel-nav");
     file_table.style.height = main_frame.offsetHeight - main_frame_nav.offsetHeight + "px";
     // file_table.offsetHeight = document.getElementById("")
+
+    var file_item = $(".file-item");
+    file_item.on('click', function () {
+        var type = $(this).children()[2];
+        if (type.innerHTML === "文件夹") {
+            alert("yes")
+        } else {
+            console.log(type.innerHTML)
+        }
+
+    })
 </script>
 </body>
 </html>

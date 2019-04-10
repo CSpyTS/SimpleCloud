@@ -1,19 +1,21 @@
 package cspy.online.dao;
 
-import cspy.online.bean.User;
+import cspy.online.bean.SCUser;
 
 import java.util.List;
 
 public interface UserMapper {
-    User selectOneByUserName(String username);
-    User selectOneByPhone(String phone);
-    User selectOneByEmail(String email);
-    List<User> selectAll();
+    SCUser selectOneByUserName(String username);
+    SCUser selectOneByPhone(String phone);
+    SCUser selectOneByEmail(String email);
+    SCUser selectOneByUid(int uid);
+
+    List<SCUser> selectAll();
 
     List<String> getAllUser();
 
-    int insertUser(User user);
-    int insertUsers(List<User> users);
+    int insertUser(SCUser scUser);
+    int insertUsers(List<SCUser> scUsers);
     String getPasswordByUserName(String username);
     String getPasswordByPhone(String phone);
     String getPasswordByEmail(String email);

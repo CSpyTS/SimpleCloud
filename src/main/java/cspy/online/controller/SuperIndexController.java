@@ -1,18 +1,10 @@
 package cspy.online.controller;
 
-import cspy.online.bean.User;
-import cspy.online.dao.UserMapper;
-import cspy.online.util.ResponseJSON;
 import cspy.online.util.WebLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.SessionScope;
-
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class SuperIndexController {

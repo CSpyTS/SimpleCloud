@@ -1,6 +1,6 @@
 package cspy.online.service;
 
-import cspy.online.bean.User;
+import cspy.online.bean.SCUser;
 import cspy.online.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,10 +43,10 @@ public class LoginRegisterService {
     }
 
     public boolean registerUser(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        return userMapper.insertUser(user) == 1;
+        SCUser SCUser = new SCUser();
+        SCUser.setUsername(username);
+        SCUser.setPassword(password);
+        return userMapper.insertUser(SCUser) == 1;
     }
 
     public boolean isUserByUserName(String username) {

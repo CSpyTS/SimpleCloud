@@ -44,8 +44,10 @@
     <bean id="systemInitializer" class="cspy.online.util.SystemInitializer">
         <constructor-arg name="dataDirectoryString" value="${system.data}"/>
         <constructor-arg name="basicDirectoryString" value="${system.basic}"/>
-        <constructor-arg name="userBasicDirectoryString" value="${system.basic.user}"/>
+        <constructor-arg name="userBasicDirectoryString" value="${system.basic.SCUser}"/>
     </bean>
+
+    <bean id="tika" class="org.apache.tika.Tika"/>
 
     <bean id="webLogger" class="cspy.online.util.WebLogger" scope="singleton">
     </bean>
