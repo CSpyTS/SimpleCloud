@@ -18,7 +18,6 @@ public class SCUser {
 
 
     public SCUser() {
-        gmtCreate = gmtModify = LocalDateTime.now();
     }
 
     public int getUid() {
@@ -50,7 +49,11 @@ public class SCUser {
     }
 
     public void setGmtCreate(LocalDateTime gmtCreate) {
-        this.gmtCreate = gmtCreate;
+        if (gmtCreate != null) {
+            this.gmtCreate = gmtCreate;
+        } else {
+            this.gmtCreate = LocalDateTime.now();
+        }
     }
 
     public LocalDateTime getGmtModify() {
@@ -58,7 +61,12 @@ public class SCUser {
     }
 
     public void setGmtModify(LocalDateTime gmtModify) {
-        this.gmtModify = gmtModify;
+        if (gmtCreate != null) {
+            this.gmtModify = gmtModify;
+        } else {
+            this.gmtModify = LocalDateTime.now();
+        }
+
     }
 
     public String getEmail() {

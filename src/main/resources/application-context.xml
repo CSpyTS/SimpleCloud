@@ -20,6 +20,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:cspy/online/mapper/*.xml"/>
+        <property name="configuration" ref="mybatisConfiguration"/>
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageHelper">
@@ -31,6 +32,11 @@
                 </bean>
             </array>
         </property>
+    </bean>
+
+    <bean id="mybatisConfiguration" class="org.apache.ibatis.session.Configuration">
+        <property name="mapUnderscoreToCamelCase" value="true"/>
+        <property name="logImpl" value="org.apache.ibatis.logging.log4j2.Log4j2Impl"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

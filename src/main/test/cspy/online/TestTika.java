@@ -2,6 +2,7 @@ package cspy.online;
 
 import cspy.online.bean.SCFile;
 import cspy.online.dao.FileMapper;
+import cspy.online.dao.StorageMapper;
 import org.apache.tika.Tika;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author CSpy
@@ -59,10 +60,10 @@ public class TestTika {
         }
 
 
-        insertSomeFileToDB(dirs);
+        insertFileToDB(dirs);
     }
 
-    public void insertSomeFileToDB(List<Path> paths) {
+    public void insertFileToDB(List<Path> paths) {
         Path rootPath = Paths.get("D:/SimpleCloud/users/CSpy");
 
         List<SCFile> needSaveSCFile = new ArrayList<>();
@@ -100,6 +101,43 @@ public class TestTika {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void insertFile() {
+        SCFile scFile = new SCFile();
+        scFile.setPath("D:\\SimpleCloud\\users\\CSpy");
+        scFile.setSize(20);
+        scFile.setFilename("testDate");
+        scFile.setGmtCreate(new Timestamp(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1024));
+        scFile.setGmtModify(new Timestamp(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1012));
+        scFile.setType("文件夹");
+
+        mapper.insertFile(scFile);
+    }
+
+
+    @Test
+    public void testGetTotalSize() {
+        long totalSize = mapper.getTotalSize("D:\\SimpleCloud\\users\\CSpy".replace("\\", "\\\\"));
+        System.out.println(totalSize);
+
+    }
+
+    @Test
+    public void testGetSize() {
+        List<Long> sizes = mapper.selectSize("D:\\SimpleCloud\\users\\CSpy".replace("\\", "\\\\"));
+        System.out.println(sizes.size());
+    }
+
+    @Autowired
+    StorageMapper storageMapper;
+
+    @Test
+    public void getStorageSizeByUid() {
+        Long storageSize = storageMapper.getStorageByUid(1);
+        System.out.println("StorageSize = " + storageSize);
     }
 
 

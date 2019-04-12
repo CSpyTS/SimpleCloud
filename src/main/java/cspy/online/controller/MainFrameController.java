@@ -3,20 +3,16 @@ package cspy.online.controller;
 import cspy.online.bean.SCFile;
 import cspy.online.bean.SCUser;
 import cspy.online.dao.FileMapper;
+import cspy.online.dao.StorageMapper;
 import cspy.online.dao.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author CSpy
@@ -36,6 +32,9 @@ public class MainFrameController {
     private FileMapper fileMapper;
 
     @Autowired
+    private StorageMapper storageMapper;
+
+    @Autowired
     private UserMapper userMapper;
 
 
@@ -50,16 +49,46 @@ public class MainFrameController {
 //    }
 
 
-    @RequestMapping("/getFileList")
-    public String getPath(@RequestParam("path") String path, Model model) {
-        List<SCFile> files = fileMapper.getFileList(Paths.get(path));
-        model.addAttribute("fileList", files);
-        System.out.println("controller path = " + path);
+//    @RequestMapping("/getFileList")
+//    public String getPath(@RequestParam("path") String path, Model model) {
+//        List<SCFile> files = fileMapper.getFileList(Paths.get(path));
+//        model.addAttribute("fileList", files);
+//        System.out.println("controller path = " + path);
 //        for (SCFile scFile : files) {
-//            System.out.println(scFile.getFilename());
+//            System.out.println(scFile.getFilename() + scFile.getGmtCreate());
 //        }
-        return "index::file-table-body";
+//        return "index::file-table-body";
+//    }
+
+    @RequestMapping("/getFileList")
+    @ResponseBody
+    public List<SCFile> getPath(@RequestParam("path") String path) {
+        return fileMapper.getFileList(Paths.get(path));
     }
+
+    @RequestMapping("/getTotalSize")
+    @ResponseBody
+    public Long getTotalSize(@RequestParam("uid") int uid) {
+        String path = "D:\\SimpleCloud\\users\\CSpy";
+        return fileMapper.getTotalSize(path.replace("\\", "\\\\"));
+    }
+
+    @RequestMapping("/getStorageSize")
+    @ResponseBody
+    public Long getStorageSize(@RequestParam("uid") int uid) {
+        return storageMapper.getStorageByUid(uid) + 10240000000L;
+    }
+
+    @RequestMapping("/getStorageState")
+    @ResponseBody
+    public Map<String, Long> getStorageState(@RequestParam("uid") int uid) {
+        Map<String, Long> result = new HashMap<>();
+        result.put("used", fileMapper.getTotalSize("D:\\SimpleCloud\\users\\CSpy".replace("\\", "\\\\")));
+        result.put("total", storageMapper.getStorageByUid(1));
+        return result;
+    }
+
+
 
 //    @ModelAttribute("filePathList")
 //    public List<Path> getFilePathList() {

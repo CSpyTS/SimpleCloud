@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cspy.online.dao.FileMapper">
+
     <insert id="insertFiles" parameterType="cspy.online.bean.SCFile">
         insert into file_table (gmt_create, gmt_modify, path, filename, type, size)
         values
@@ -12,10 +13,24 @@
         </foreach>
     </insert>
 
+    <insert id="insertFile" parameterType="cspy.online.bean.SCFile">
+    insert into file_table (gmt_create, gmt_modify, path, filename, type, size)
+    values
+    (#{gmtCreate}, #{gmtModify}, #{path}, #{filename}, #{type},#{size})
+    </insert>
+
 
 
     <select id="getFileList" resultType="cspy.online.bean.SCFile">
         select * from file_table where path = #{path}
+    </select>
+
+    <select id="getTotalSize" resultType="java.lang.Long">
+        SELECT SUM(size) FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
+    </select>
+
+    <select id="selectSize" resultType="java.lang.Long">
+        SELECT size FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
     </select>
 
 </mapper>

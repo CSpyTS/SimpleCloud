@@ -2,6 +2,10 @@ package cspy.online.bean;
 
 import org.springframework.cglib.core.Local;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 /**
@@ -10,15 +14,20 @@ import java.time.LocalDateTime;
  */
 public class SCFile {
     private int fid;
-    private LocalDateTime gmtCreate;
-    private LocalDateTime gmtModify;
+    private Timestamp gmtCreate;
+    private Timestamp gmtModify;
     private String path;
     private String filename;
     private String type;
     private long size;
+//    private Timestamp sevenDaysAgoStamp;
+
+//    DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+
 
     public SCFile() {
-        this.gmtModify = this.gmtCreate = LocalDateTime.now();
+//        gmtModify = gmtCreate = "7天前";
+//        sevenDaysAgoStamp = new Timestamp(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000);
     }
 
     @Override
@@ -34,19 +43,33 @@ public class SCFile {
         this.fid = fid;
     }
 
-    public LocalDateTime getGmtCreate() {
+    public Timestamp getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(LocalDateTime gmtCreate) {
+    public void setGmtCreate(Timestamp gmtCreate) {
+//        if (gmtCreate != null) {
+//            if (gmtCreate.before(sevenDaysAgoStamp)) {
+//                this.gmtCreate = "7天前";
+//            } else {
+//                this.gmtCreate = dateFormat.format(gmtCreate);
+//            }
+//        }
         this.gmtCreate = gmtCreate;
     }
 
-    public LocalDateTime getGmtModify() {
+    public Timestamp getGmtModify() {
         return gmtModify;
     }
 
-    public void setGmtModify(LocalDateTime gmtModify) {
+    public void setGmtModify(Timestamp gmtModify) {
+//        if (gmtModify != null) {
+//            if (gmtModify.before(sevenDaysAgoStamp)) {
+//                this.gmtModify = "7天前";
+//            } else {
+//                this.gmtModify = dateFormat.format(gmtModify);
+//            }
+//        }
         this.gmtModify = gmtModify;
     }
 

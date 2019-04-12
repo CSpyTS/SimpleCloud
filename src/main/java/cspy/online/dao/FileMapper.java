@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface FileMapper {
     int insertFiles(List<SCFile> fileList);
+    int insertFile(SCFile scFile);
+
+    Long getTotalSize(String path);
+    List<Long> selectSize(String path);
 
     List<SCFile> getFileList(Path path);
 }
