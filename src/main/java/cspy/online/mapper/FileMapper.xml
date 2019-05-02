@@ -5,21 +5,24 @@
 <mapper namespace="cspy.online.dao.FileMapper">
 
     <insert id="insertFiles" parameterType="cspy.online.bean.SCFile">
-        insert into file_table (gmt_create, gmt_modify, path, filename, type, size)
+        insert into file_table (gmt_create, gmt_modify, path, filename, type, size, icon, fdfs_id)
         values
         <foreach collection="list" item="fileItem" index="index" separator=",">
             (#{fileItem.gmtCreate}, #{fileItem.gmtModify}, #{fileItem.path}, #{fileItem.filename}, #{fileItem.type},
-            #{fileItem.size})
+            #{fileItem.size}, #{fileItem.icon}, #{fileItem.fdfsId})
         </foreach>
     </insert>
 
     <insert id="insertFile" parameterType="cspy.online.bean.SCFile">
-    insert into file_table (gmt_create, gmt_modify, path, filename, type, size)
+    insert into file_table (gmt_create, gmt_modify, path, filename, type, size, icon, fdfs_id)
     values
-    (#{gmtCreate}, #{gmtModify}, #{path}, #{filename}, #{type},#{size})
+    (#{gmtCreate}, #{gmtModify}, #{path}, #{filename}, #{type},#{size}, #{icon}, #{fdfsId})
     </insert>
 
 
+    <select id="existPath" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path}
+    </select>
 
     <select id="getFileList" resultType="cspy.online.bean.SCFile">
         select * from file_table where path = #{path}
@@ -32,5 +35,39 @@
     <select id="selectSize" resultType="java.lang.Long">
         SELECT size FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
     </select>
+
+    <select id="searchByType" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE type LIKE CONCAT(#{type}, '%') AND path LIKE CONCAT(#{path}, '%')
+    </select>
+
+    <select id="selectDirectory" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM file_table WHERE type='文件夹' AND path=#{path} AND filename = #{dirName}
+    </select>
+
+    <select id="getDirectoryList" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path} AND type='文件夹'
+    </select>
+
+    <select id="getDirectory" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path} AND filename = #{dirName} AND type = '文件夹'
+    </select>
+
+    <delete id="deleteOneFile">
+        DELETE FROM file_table WHERE path = #{path} AND filename = #{fileName}
+    </delete>
+
+
+
+    <delete id="deleteFiles">
+        DELETE FROM file_table WHERE path = #{path} AND filename IN
+        <foreach collection="fileName" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deletePath">
+        DELETE FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
+    </delete>
+
 
 </mapper>

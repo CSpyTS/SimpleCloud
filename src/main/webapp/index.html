@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <title>简易云</title>
     <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/iconfont.js"></script>
+
     <link rel="stylesheet" href="css/bootstrap.css">
-    <!--<script src="js/iconfont.js"></script>-->
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
     <style>
 
         :root {
@@ -57,7 +63,6 @@
             float: left;
             width: calc(100% - var(--siderbar));
             height: 100%;
-            /*background: #6f42c1;*/
             display: inline-block;
             overflow: hidden;
         }
@@ -72,6 +77,21 @@
             width: calc(var(--siderbar) - 40px);
             margin: auto;
         }
+
+        tbody tr {
+            cursor: pointer;
+        }
+
+        .checkbox label {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+        .checkbox {
+            display: inline-block;
+        }
+
+
     </style>
 
 </head>
@@ -117,18 +137,6 @@
 </nav>
 <div id="main-frame">
     <div id="siderbar">
-        <!--<div class="list-group">-->
-        <!--<a href="#" class="list-group-item list-group-item-action">全部文件</a>-->
-
-        <!--<a href="#" class="list-group-item list-group-item-action active">图片</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">文档</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">视频</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">种子</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">音乐</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">其他</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">我的分享</a>-->
-        <!--<a href="#" class="list-group-item list-group-item-action">回收站</a>-->
-        <!--</div>-->
 
         <ul class="nav nav-pills  flex-column" role="tablist">
             <li class="nav-item">
@@ -160,7 +168,12 @@
 
 
         <div id="relate-div">
-            <div id="storage-progress-label"><span id="label-span">----</span></div>
+            <div id="storage-progress-label" style="cursor: pointer;">
+                <span id="label-span">----</span>
+                <svg class="icon" id="storage-reload" aria-hidden="true">
+                    <use xlink:href="#iconreload"></use>
+                </svg>
+            </div>
             <div id="storage-progress" class="progress" style="height: 2px;">
                 <div class="progress-bar" id="storage-progressbar" role="progressbar" style="width: 0%;"></div>
             </div>
@@ -171,58 +184,39 @@
     <div id="show-panel" class="tab-content">
         <!--id="all-file"-->
         <div class="tab-pane fade show active" id="pills-all-file" role="tabpanel">
-            <div id="show-panel-nav">
-                <!--<nav id="main-1" class="navbar navbar-expand-lg navbar-light bg-light">-->
-                <!--<a class="navbar-brand" href="#">Navbar</a>-->
-                <!--<button class="navbar-toggler" type="button" data-toggle="collapse"-->
-                <!--data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent"-->
-                <!--aria-expanded="false" aria-label="Toggle navigation">-->
-                <!--<span class="navbar-toggler-icon"></span>-->
-                <!--</button>-->
+            <div>
+                <div class="checkbox checkbox-primary">
+                    <input type="checkbox" class="styled" id="all-check">
+                    <label for="all-check">全选</label>
+                </div>
+                <button type="button" class="btn btn-primary">新建文件夹</button>
 
-                <!--<div class="collapse navbar-collapse" id="navbarSupportedContent1">-->
-                <!--<ul class="navbar-nav mr-auto">-->
-                <!--<li class="nav-item active">-->
-                <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link" href="#">Link</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item dropdown">-->
-                <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"-->
-                <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                <!--Dropdown-->
-                <!--</a>-->
-                <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown1">-->
-                <!--<a class="dropdown-item" href="#">Action</a>-->
-                <!--<a class="dropdown-item" href="#">Another action</a>-->
-                <!--<div class="dropdown-divider"></div>-->
-                <!--<a class="dropdown-item" href="#">Something else here</a>-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--<form class="form-inline my-2 my-lg-0">-->
-                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-                <!--</form>-->
-                <!--</div>-->
-                <!--</nav>-->
+                <!-- Example split danger button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary">上传文件</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">上传文件</a>
+                        <a class="dropdown-item" href="#">上传文件夹</a>
+
+                    </div>
+                </div>
+            </div>
+            <div id="show-panel-nav">
+
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb" id="file-path-ol">
                     </ol>
                 </nav>
             </div>
             <div id="file-table-div">
-                <table class="table table-hover">
+                <table id="file-table" data-th-checked="true">
                     <thead>
                     <tr>
                         <th scope="col">文件名</th>
-                        <th scope="col">大小(b)</th>
+                        <th data-sortable="true" scope="col">大小(b)</th>
                         <th scope="col">类型</th>
-                        <th scope="col">修改日期</th>
+                        <th data-sortable="true" scope="col">修改日期</th>
                     </tr>
                     </thead>
                     <tbody id="file-table-body">
@@ -294,15 +288,30 @@
 
     });
 
+    $('#file-table').bootstrapTable({
+
+    });
+
+    $("#upload-file-btn").on('mouseover', function () {
+        $(this).dropdown();
+        console.log($(this))
+    });
+
     initFilePathOl(file_path_list);
     // $.ready(function () {
     //     initStorage();
     // })
     $(document).ready(
         function () {
-            initStorage()
+            initStorage();
         }
-    )
+    );
+
+
+    $("#storage-reload").on('click',function () {
+        initStorage();
+    });
+
 
 
 
@@ -367,16 +376,16 @@
             data : {uid : 1},
             dataType : "json",
             success : function (state) {
+                console.log("used = " + state.used + "\ttotal = " + state.total);
+
                 var msg = getFileSize(state.used) + "/" + getFileSize(state.total);
-                console.log("msg = " + msg);
 
                 var span = document.getElementById("label-span");
                 span.innerHTML = msg;
                 // $("#label-span").innerHTML = msg;
                 // console.log($("#label-span"))
 
-                var d = Math.floor(state.used / state.total);
-                console.log("divide = " + d);
+                var d = ((state.used / state.total) * 100).toFixed(2);
                 var bar = document.getElementById("storage-progressbar");
                 bar.style.width = d + "%";
             },

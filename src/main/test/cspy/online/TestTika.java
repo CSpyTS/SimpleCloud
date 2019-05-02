@@ -74,6 +74,8 @@ public class TestTika {
             } catch (IOException e) {
                 scFile.setType("文件夹");
             }
+            scFile.setGmtCreate(new Timestamp(System.currentTimeMillis()));
+            scFile.setGmtModify(new Timestamp(System.currentTimeMillis()));
             scFile.setSize(path.toFile().length());
             scFile.setPath(path.getParent().toString());
             scFile.setFilename(path.getFileName().toString());

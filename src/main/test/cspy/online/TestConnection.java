@@ -70,9 +70,20 @@ public class TestConnection {
         Path path = Paths.get("D:/SimpleCloud/users/CSpy");
         System.out.println(path);
         FileMapper fileMapper = (FileMapper) context.getBean("fileMapper");
-        List<SCFile> fileList = fileMapper.getFileList(path);
+        List<SCFile> fileList = fileMapper.getFileList(path.toString());
         for (SCFile file : fileList) {
             System.out.println(file.getPath() + "----" + file.getFilename() + "----" + file.getType());
         }
+    }
+
+    @Test
+    public void testSelectDirectory() {
+        String path = "CSpy";
+        String dirName = "44444";
+        FileMapper fileMapper = (FileMapper) context.getBean("fileMapper");
+        int count = fileMapper.selectDirectory(path, dirName);
+        System.out.println(path + "/" + dirName + " 文件夹存在" + count + "个");
+
+
     }
 }

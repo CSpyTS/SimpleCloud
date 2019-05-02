@@ -60,11 +60,7 @@ public class MainFrameController {
 //        return "index::file-table-body";
 //    }
 
-    @RequestMapping("/getFileList")
-    @ResponseBody
-    public List<SCFile> getPath(@RequestParam("path") String path) {
-        return fileMapper.getFileList(Paths.get(path));
-    }
+
 
     @RequestMapping("/getTotalSize")
     @ResponseBody

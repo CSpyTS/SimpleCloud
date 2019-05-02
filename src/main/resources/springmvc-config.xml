@@ -15,6 +15,12 @@
     </mvc:annotation-driven>
 
     <mvc:default-servlet-handler/>
+    
+    <mvc:cors>
+        <mvc:mapping path="/*"
+        allowed-origins="*"
+        allowed-methods="GET,POST, PUT"/>
+    </mvc:cors>
 
     <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
         <!--<property name="prefix" value="classpath:"/>-->

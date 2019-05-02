@@ -18,7 +18,6 @@ import java.util.List;
  * @date 2019/3/28 11:58
  */
 @Controller
-
 public class SuperUserController {
 
     @Autowired

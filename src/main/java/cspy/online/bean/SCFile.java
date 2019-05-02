@@ -1,12 +1,7 @@
 package cspy.online.bean;
 
-import org.springframework.cglib.core.Local;
-
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+
 
 /**
  * @author CSpy
@@ -20,19 +15,13 @@ public class SCFile {
     private String filename;
     private String type;
     private long size;
-//    private Timestamp sevenDaysAgoStamp;
+    private String icon;
+    private String fdfsId;
 
-//    DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-
-
-    public SCFile() {
-//        gmtModify = gmtCreate = "7天前";
-//        sevenDaysAgoStamp = new Timestamp(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000);
-    }
 
     @Override
     public String toString() {
-        return path + "/" + filename;
+        return path + "||" + filename;
     }
 
     public int getFid() {
@@ -48,13 +37,6 @@ public class SCFile {
     }
 
     public void setGmtCreate(Timestamp gmtCreate) {
-//        if (gmtCreate != null) {
-//            if (gmtCreate.before(sevenDaysAgoStamp)) {
-//                this.gmtCreate = "7天前";
-//            } else {
-//                this.gmtCreate = dateFormat.format(gmtCreate);
-//            }
-//        }
         this.gmtCreate = gmtCreate;
     }
 
@@ -63,13 +45,6 @@ public class SCFile {
     }
 
     public void setGmtModify(Timestamp gmtModify) {
-//        if (gmtModify != null) {
-//            if (gmtModify.before(sevenDaysAgoStamp)) {
-//                this.gmtModify = "7天前";
-//            } else {
-//                this.gmtModify = dateFormat.format(gmtModify);
-//            }
-//        }
         this.gmtModify = gmtModify;
     }
 
@@ -103,6 +78,22 @@ public class SCFile {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getFdfsId() {
+        return fdfsId;
+    }
+
+    public void setFdfsId(String fdfsId) {
+        this.fdfsId = fdfsId;
     }
 
 
