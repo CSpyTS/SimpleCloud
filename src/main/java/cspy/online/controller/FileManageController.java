@@ -1,8 +1,11 @@
 package cspy.online.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.ArrayType;
+import cspy.online.bean.FileMoveWrapper;
 import cspy.online.bean.ResponseMessage;
 import cspy.online.bean.SCFile;
+import cspy.online.bean.SimpleFile;
 import cspy.online.dao.FileMapper;
 import cspy.online.util.FDFSTool;
 import cspy.online.util.FileTool;
@@ -13,9 +16,7 @@ import org.csource.common.NameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -25,10 +26,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * @author CSpy
  * @date 2019/4/21 13:03
@@ -87,12 +86,11 @@ public class FileManageController {
                 scFile.setFdfsId(fileId);
                 if (smallImage != null) {
                     metaList[1] = new NameValuePair("fileExtName", "jpg");
-                    String smallFileId = FDFSTool.uploadFile(FileTool.fileToByte(smallImage),"jpg", metaList);
+                    String smallFileId = FDFSTool.uploadFile(FileTool.fileToByte(smallImage), "jpg", metaList);
                     scFile.setIcon(smallFileId);
                 }
                 scFile.setPath(path);
                 fileMapper.insertFile(scFile);
-
 
 
                 System.out.println(fileId);
@@ -162,7 +160,7 @@ public class FileManageController {
             message.setState(true);
             message.setMsg("删除成功。");
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             message.setState(false);
             message.setMsg("删除失败！");
@@ -181,7 +179,7 @@ public class FileManageController {
         System.out.println("split = " + split.length);
 
         int count = 0;
-        for (String sp: split) {
+        for (String sp : split) {
             SCFile file = fileMapper.getDirectory(path, sp);
             if (file != null) {
                 String rootPath = file.getPath() + "/" + file.getFilename();
@@ -196,63 +194,61 @@ public class FileManageController {
         return message;
     }
 
+    @RequestMapping(value = "/moveFile", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage moveFile(@RequestBody String requestBody) {
+        ResponseMessage message = new ResponseMessage();
 
-//    private void removeDirectory(Path path) {
-//        if (fileMapper.getFileList(path) != null) {
-////            List<SCFile> list = fileMapper.getFileList(path);
-////            for (SCFile item: list) {
-////                System.out.print(item);
-////                if (item.getType().equals("文件夹")) {
-////                    System.out.print("\t文件夹");
-////                    removeDirectory(Paths.get(path.toString(), item.getFilename()));
-////                } else {
-////                    fileMapper.deleteOneFile(item.getPath(), item.getFilename());
-////                }
-////                System.out.println();
-////            }
-//            fileMapper.deletePath(path);
-//            fileMapper.deleteOneFile(path.getParent().toString(), path.getFileName().toString());
-//            System.out.println("最后删除:" + path);
-//        }
-//
-//    }
+        System.out.println(requestBody);
+        List<SCFile> unmovedFileList = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            FileMoveWrapper wrapper = mapper.readValue(requestBody, FileMoveWrapper.class);
+
+            List<SimpleFile> simpleFiles = wrapper.getFileNameList();
+            String path = wrapper.getPath();
+            String destPath = wrapper.getDestPath();
+
+            for (SimpleFile sf : simpleFiles) {
+                // 获取待移动的文件实例
+                SCFile scFile = fileMapper.selectByFileName(path, sf.getFileName(), sf.isDir());
+                System.out.println(scFile);
+                if (sf.isDir()) {
+                    // 获取子目录
+                    String tempPath = path + "/" + sf.getFileName();
+                    System.out.println("tempPath = " + tempPath);
+                    List<SCFile> directoryList = fileMapper.selectChildren(tempPath);
+                    for (SCFile cDirectory : directoryList) {
+                        System.out.println();
+                        System.out.print("old:" + cDirectory);
+                        cDirectory.setPath(cDirectory.getPath().replace(path, destPath));
+                        System.out.println(" new:" + cDirectory);
+                    }
+                    unmovedFileList.addAll(directoryList);
+                }
+                System.out.print("old:" + scFile);
+                scFile.setPath(destPath);
+                System.out.println(" new:" + scFile);
+                unmovedFileList.add(scFile);
+            }
+            int duplicate = fileMapper.duplicateFile(unmovedFileList);
+            System.out.println("重复文件：" + duplicate);
+            if (duplicate != 0) {
+                message.setMsg("有" + duplicate +"个重名文件，请先处理相关文件再进行移动！");
+                message.setState(false);
+                return message;
+            } else {
+                int updated = fileMapper.updateSCFiles(unmovedFileList);
+                System.out.println("当前更新：" + updated + "个文件，总共:" + unmovedFileList.size() + "个");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-
-//    @RequestMapping("/moveFile")
-//    @ResponseBody
-//    public Map<String, String> removeFile(String source, String destination) {
-//        Map<String, String> resultMap = new HashMap<>(2);
-//        File sourceFile = Paths.get(source).toFile();
-//        File destinationFile = Paths.get(destination).toFile();
-//
-//        if (!sourceFile.exists()) {
-//            resultMap.put("state", "false");
-//            resultMap.put("msg", "源文件不存在！");
-//            return resultMap;
-//        }
-//        if (!destinationFile.exists()) {
-//            resultMap.put("state", "false");
-//            resultMap.put("msg", "目标文件夹不存在！");
-//            return resultMap;
-//        }
-//        if (!destinationFile.isDirectory()) {
-//            resultMap.put("state", "false");
-//            resultMap.put("msg", "目标位置不是文件夹！");
-//            return resultMap;
-//        }
-//
-//        try {
-//            FileUtils.moveFile(sourceFile, destinationFile);
-//            resultMap.put("state", "true");
-//            resultMap.put("msg", "文件移动成功。");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            resultMap.put("state", "false");
-//            resultMap.put("msg", "文件移动失败！");
-//        }
-//        return resultMap;
-//    }
+        return null;
+    }
 
 
 }

@@ -30,4 +30,12 @@ public interface FileMapper {
     SCFile getDirectory(@Param("path") String path, @Param("dirName") String dirName);
 
     List<SCFile> searchByType(@Param("type") String type,@Param("path") String path);
+    List<SCFile> selectChildren(@Param("path") String path);
+
+    Integer duplicateFile(List<SCFile> scFiles);
+
+    int updateSCFiles(List<SCFile> scFiles);
+
+
+    SCFile selectByFileName(@Param("path") String path, @Param("fileName") String fileName, @Param("isDir") boolean isDir);
 }

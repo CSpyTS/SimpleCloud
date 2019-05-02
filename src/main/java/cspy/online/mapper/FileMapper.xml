@@ -48,13 +48,38 @@
         SELECT * FROM file_table WHERE path = #{path} AND type='文件夹'
     </select>
 
+    <select id="selectByFileName" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path} AND filename = #{fileName}
+        <if test="isDir">
+            AND type='文件夹'
+        </if>
+    </select>
+
     <select id="getDirectory" resultType="cspy.online.bean.SCFile">
         SELECT * FROM file_table WHERE path = #{path} AND filename = #{dirName} AND type = '文件夹'
     </select>
 
+    <select id="selectChildren" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path} OR path LIKE CONCAT(#{path}, '/%')
+    </select>
+
+    <select id="duplicateFile" resultType="java.lang.Integer" parameterType="cspy.online.bean.SCFile">
+        SELECT COUNT(*) FROM file_table
+        WHERE
+        <foreach collection="list" item="item" separator=" or ">
+            path = #{item.path} AND filename = #{item.filename}
+        </foreach>
+
+    </select>
+
+
     <delete id="deleteOneFile">
         DELETE FROM file_table WHERE path = #{path} AND filename = #{fileName}
     </delete>
+
+
+
+
 
 
 
@@ -68,6 +93,18 @@
     <delete id="deletePath">
         DELETE FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
     </delete>
+
+    <update id="updateSCFiles">
+        UPDATE file_table SET path = CASE fid
+        <foreach collection="list" item="item">
+        WHEN #{item.fid} THEN #{item.path}
+        </foreach>
+        END
+        WHERE fid IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.fid}
+        </foreach>
+    </update>
 
 
 </mapper>

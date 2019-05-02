@@ -21,7 +21,7 @@ public class SCFile {
 
     @Override
     public String toString() {
-        return path + "||" + filename;
+        return path + "(" + filename + ")";
     }
 
     public int getFid() {
