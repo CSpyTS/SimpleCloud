@@ -12,6 +12,7 @@ import cspy.online.util.FileTool;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.tika.Tika;
+import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -150,16 +151,22 @@ public class FileManageController {
         ResponseMessage message = new ResponseMessage();
         try {
             Path pathObj = Paths.get(path);
+            int count = 0;
             if (fileMapper.getFileList(path) != null) {
+                List<SCFile> unRemovedFiles = fileMapper.selectChildren(path);
                 int children = fileMapper.deletePath(path);
                 int parent = fileMapper.deleteOneFile(pathObj.getParent().toString(), pathObj.getFileName().toString());
+
+                count = FDFSTool.deleteFiles(unRemovedFiles);
+
                 System.out.println("最后删除:" + path);
                 System.out.println("c = " + children + " p = " + parent);
+                message.setMsg("删除成功。FDFS共删除了" + count + "条数据，共" + unRemovedFiles.size() + "条数据。");
+                message.setState(true);
+            } else {
+                message.setState(false);
+                message.setMsg("当前所选文件夹不存在。");
             }
-
-            message.setState(true);
-            message.setMsg("删除成功。");
-
         } catch (Exception e) {
             e.printStackTrace();
             message.setState(false);
@@ -178,18 +185,42 @@ public class FileManageController {
         String[] split = fileNameListStr.split(",");
         System.out.println("split = " + split.length);
 
+        List<SCFile> unRemovedFiles = new ArrayList<>();
         int count = 0;
         for (String sp : split) {
-            SCFile file = fileMapper.getDirectory(path, sp);
+
+
+            // 如果当前子文件是目录的话
+            SCFile file = fileMapper.selectFile(path, sp);
+
             if (file != null) {
-                String rootPath = file.getPath() + "/" + file.getFilename();
-                count += fileMapper.deletePath(rootPath);
+                if (file.getType().equals("文件夹")) {
+                    // 如果是文件夹，则将该文件夹及其子文件夹全部删除
+                    String rootPath = file.getPath() + "/" + file.getFilename();
+
+                    unRemovedFiles.addAll(fileMapper.selectChildren(rootPath));
+                    count += fileMapper.deletePath(rootPath);
+                    count += fileMapper.deleteDirectory(path, sp);
+
+                } else {
+                    // 不是文件夹，则只删除此文件
+                    unRemovedFiles.add(file);
+                    count += fileMapper.deleteOneFile(path, sp);
+                }
+
+
             }
         }
-        count += fileMapper.deleteFiles(path, Arrays.asList(split));
+        try {
+            FDFSTool.deleteFiles(unRemovedFiles);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
 
         message.setState(true);
-        message.setMsg("删除成功，共删除" + count + "条数据!");
+        message.setMsg("删除成功，共删除" + count + "条数据! FDFS删除了：" + unRemovedFiles.size() + "个文件。");
 
         return message;
     }
@@ -240,14 +271,18 @@ public class FileManageController {
             } else {
                 int updated = fileMapper.updateSCFiles(unmovedFileList);
                 System.out.println("当前更新：" + updated + "个文件，总共:" + unmovedFileList.size() + "个");
+                message.setState(true);
+                message.setMsg("文件移动成功，共：" + unmovedFileList.size() + "个文件。");
+                return message;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        return null;
+        message.setState(true);
+        message.setMsg("文件移动成功。");
+        return message;
     }
 
 

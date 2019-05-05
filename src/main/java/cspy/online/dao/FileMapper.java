@@ -23,8 +23,23 @@ public interface FileMapper {
     List<SCFile> getDirectoryList(String path);
 
     int selectDirectory(@Param("path") String path, @Param("dirName") String dirName);
+    SCFile selectFile(@Param("path") String path, @Param("fileName") String fileName);
     int deleteOneFile(@Param("path") String path, @Param("fileName") String fileName);
+
+    /**
+     *
+     * @param path  删除路径path下的文件和子文件
+     * @return  删除的记录数
+     */
     int deletePath(@Param("path") String path);
+
+    /**
+     *
+     * @param path  删除路径为path， 文件名为fileName的文件夹
+     * @param fileName  目录名
+     * @return  删除的记录数
+     */
+    int deleteDirectory(@Param("path") String path, @Param("fileName") String fileName);
 
     int deleteFiles(@Param("path") String path, @Param("fileName") List<String> fileName);
     SCFile getDirectory(@Param("path") String path, @Param("dirName") String dirName);

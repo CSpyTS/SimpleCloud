@@ -37,7 +37,7 @@
     </select>
 
     <select id="searchByType" resultType="cspy.online.bean.SCFile">
-        SELECT * FROM file_table WHERE type LIKE CONCAT(#{type}, '%') AND path LIKE CONCAT(#{path}, '%')
+        SELECT * FROM file_table WHERE type LIKE CONCAT(#{type}, '/%') AND path LIKE CONCAT(#{path}, '/%')
     </select>
 
     <select id="selectDirectory" resultType="java.lang.Integer">
@@ -72,6 +72,10 @@
 
     </select>
 
+    <select id="selectFile" resultType="cspy.online.bean.SCFile">
+        SELECT * FROM file_table WHERE path = #{path} AND filename = #{fileName}
+    </select>
+
 
     <delete id="deleteOneFile">
         DELETE FROM file_table WHERE path = #{path} AND filename = #{fileName}
@@ -91,7 +95,11 @@
     </delete>
 
     <delete id="deletePath">
-        DELETE FROM file_table WHERE path LIKE CONCAT(#{path}, '%')
+        DELETE FROM file_table WHERE path = #{path} OR path LIKE CONCAT(#{path}, '/%')
+    </delete>
+
+    <delete id="deleteDirectory">
+        DELETE FROM file_table WHERE path = #{path} AND filename = #{fileName} AND type = '文件夹'
     </delete>
 
     <update id="updateSCFiles">

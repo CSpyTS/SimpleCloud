@@ -64,9 +64,8 @@ public class MainFrameController {
 
     @RequestMapping("/getTotalSize")
     @ResponseBody
-    public Long getTotalSize(@RequestParam("uid") int uid) {
-        String path = "D:\\SimpleCloud\\users\\CSpy";
-        return fileMapper.getTotalSize(path.replace("\\", "\\\\"));
+    public Long getTotalSize(@RequestParam("path") String path) {
+        return fileMapper.getTotalSize(path);
     }
 
     @RequestMapping("/getStorageSize")
@@ -77,10 +76,10 @@ public class MainFrameController {
 
     @RequestMapping("/getStorageState")
     @ResponseBody
-    public Map<String, Long> getStorageState(@RequestParam("uid") int uid) {
+    public Map<String, Long> getStorageState(@RequestParam("path") String path) {
         Map<String, Long> result = new HashMap<>();
-        result.put("used", fileMapper.getTotalSize("D:\\SimpleCloud\\users\\CSpy".replace("\\", "\\\\")));
-        result.put("total", storageMapper.getStorageByUid(1));
+        result.put("used", fileMapper.getTotalSize(path));
+        result.put("total", storageMapper.getStorageByUid(1) + 10240000000L);
         return result;
     }
 

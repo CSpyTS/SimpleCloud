@@ -1,5 +1,6 @@
 package cspy.online.controller;
 
+import cspy.online.bean.ResponseMessage;
 import cspy.online.bean.SCFile;
 import cspy.online.service.FileSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,13 @@ public class FileSearchController {
 
     @RequestMapping("/searchByType")
     @ResponseBody
-    public List<SCFile> searchByType(@RequestParam("type") String type, @RequestParam("path") String path) {
-        return fileSearchService.searchByType(type, path);
+    public ResponseMessage searchByType(@RequestParam("type") String type, @RequestParam("path") String path) {
+        ResponseMessage message = new ResponseMessage();
+        message.setState(true);
+        List<SCFile> scFiles = fileSearchService.searchByType(type, path);
+        message.setMsg("共查询出" + scFiles.size() + "个记录。");
+        message.setData(scFiles);
+        return message;
     }
 
     @RequestMapping("/getFileList")
